@@ -30,7 +30,7 @@ class Inputs extends React.Component<Props, State> {
                     key={para.label}
                     label={para.label}
                     name={para.name}
-                    rules={[{ required: para.required, message: '请输入' + para.name}]}
+                    rules={[{ required: para.required, message: '请输入' + para.label}]}
                 >
                     <Input placeholder={para.placeholder} />
                 </Form.Item>

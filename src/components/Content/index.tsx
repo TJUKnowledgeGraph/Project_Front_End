@@ -4,6 +4,7 @@ import { Layout } from 'antd';
 import Graph from 'components/Graph'
 import Inputs from 'components/Inputs'
 import { get } from 'api/query'
+import Card from 'components/Card'
 
 interface Props {
     item: any
@@ -21,6 +22,8 @@ class Content extends React.Component<Props, State> {
             datas: []
         }
     }
+
+    ref: any = React.createRef()
 
     // 讲数据处理为适合前端显示的格式
     processData = (data: any) => {
@@ -48,33 +51,43 @@ class Content extends React.Component<Props, State> {
     }
 
     handleSearch = (url: string, value: any) => {
-        // get(url, value).then(data => this.processData(data))
-        get(url, value).then(data => this.props.item.processData(data)
-        ).then((data: any) => {
-            let datas = this.state.datas
-            datas.unshift(data)
-            console.log(datas)
-            this.setState({
-                datas: datas
-            })
+        console.log(value)
+        let datas = this.state.datas
+        datas.push({
+            item: this.props.item,
+            value: value
         })
+        this.setState({
+            datas: datas
+        })
+
+
+    }
+
+    // 平滑滚动至顶部
+    scrollToTop = () => {
+        let last: number = 0
+        var timer: any = setInterval(() => {
+            this.ref.current.scrollTop -= 100
+            if (last === this.ref.current.scrollTop) {
+                clearInterval(timer)
+            }
+            last = this.ref.current.scrollTop
+        }, 50)
+    }
+
+    componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any): void {
+        this.scrollToTop()
     }
 
     render() {
         console.log(this.props.item)
         let cards: any[] = []
-        // console.log(this.state)
-        // console.log(this.state.datas)
+        let key = 0
         this.state.datas.forEach((data) => {
-            // cards.unshift(
-            //     <div className='card'>
-            //         <Graph data={data}></Graph>
-            //     </div>
-            // )
+            key += 1
             cards.push(
-                <div className='card'>
-                    <Graph data={data}></Graph>
-                </div>
+                <Card key={key} item={data.item} value={data.value} scroll={this.scrollToTop}></Card>
             )
         })
 
@@ -86,7 +99,7 @@ class Content extends React.Component<Props, State> {
                         :
                         <h1>请选择一项</h1>
                 }
-                <div className='cards'>
+                <div className='cards' ref={this.ref}>
                     {cards}
                 </div>
             </Layout>

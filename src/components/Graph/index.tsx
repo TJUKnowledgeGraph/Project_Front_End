@@ -81,38 +81,8 @@ class Graph extends React.Component<Props, State> {
     }
     ref: any = React.createRef()
     graph: any = null		// 给 graph 设置一个any类型 解决 new G6.Graph 时赋值问题
+
     componentDidMount(){
-        console.log('jjj')
-            // G6 action
-    // G6.registerBehavior('node-activate', {
-    //     getDefaultCfg() {
-    //         return {
-    //             multiple: true
-    //         };
-    //     },
-    //     getEvents() {
-    //         return {
-    //             'node:mouseenter': 'onMouseenter',
-    //             'node:dblclick': 'onDblclick'
-    //         };
-    //     },
-    //     onMouseenter(e: any) {
-
-    //         // $('#proul').children().remove();
-    //         // var pros = $.extend({}, e.item.getModel().properties);
-
-    //         // for (var p in pros) {
-    //         //     $('#proul').append(
-    //         //         '<ul class="pro_slider"><li><b>' + p + ' : </b> ' + pros[p] + '</li>')
-    //         // };
-    //     },
-
-
-    //     onDblclick(e: any) {
-    //         // readNeo4j(e.item.getModel(), 2)
-    //         // console.log(e.item.getModel());
-    //     }
-    // });
         this.graph = new G6.Graph({
             container: this.ref.current, // 指定挂载容器
             // width: 1000, // 图的宽度

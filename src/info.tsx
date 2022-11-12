@@ -51,6 +51,7 @@ const columns = [
 ];
 
 function processTableData(data: any) {
+    console.log(data)
     return {
         dataSource: dataSource,
         columns: columns,
