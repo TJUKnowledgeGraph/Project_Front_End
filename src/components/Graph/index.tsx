@@ -1,32 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import G6 from '@antv/g6';
 
-const initData = {
-    // 点集
-    nodes: [
-        {
-            id: 'node1', // 节点的唯一标识
-            x: 100, // 节点横坐标
-            y: 200, // 节点纵坐标
-            label: '起始点', // 节点文本
-        },
-        {
-            id: 'node2',
-            x: 300,
-            y: 200,
-            label: '目标点',
-        },
-    ],
-    // 边集
-    edges: [
-        // 表示一条从 node1 节点连接到 node2 节点的边
-        {
-            source: 'node1', // 起始点 id
-            target: 'node2', // 目标点 id
-            label: '我是连线', // 边的文本
-        },
-    ],
-};
 const color_set = ["#dd6b66",
     "#759aa0",
     "#e69d87",
@@ -76,9 +50,6 @@ interface State {
 }
 
 class Graph extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props)
-    }
     ref: any = React.createRef()
     graph: any = null		// 给 graph 设置一个any类型 解决 new G6.Graph 时赋值问题
 
@@ -103,7 +74,7 @@ class Graph extends React.Component<Props, State> {
 
             defaultNode: {
                 size: 35,
-                color: '#5B8FF9',
+                // color: 'rgba(209, 207, 207, 0.26)',
                 style: {
                     lineWidth: 2,
                     fill: '',
@@ -113,7 +84,7 @@ class Graph extends React.Component<Props, State> {
                 labelCfg: {
                     position: 'top',
                     style: {
-                        fill: '#ddd',
+                        fill: '#000',
                     },
                 }
 
@@ -124,7 +95,7 @@ class Graph extends React.Component<Props, State> {
                 label: 'node-label',
                 labelCfg: {
                     style: {
-                        fill: '#ddd',
+                        fill: '#000',
                         stroke: '',
                     },
                 },

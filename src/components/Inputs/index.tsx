@@ -1,9 +1,10 @@
 import { Button, Form, Input } from 'antd';
 import React from 'react'
+import './index.scss'
 
 interface Props {
-    handlerSearch: (url: string, values: any) => void
-    url: string
+    handlerSearch: (values: any) => void
+    text: string
     paras: {
         label: string
         name: string
@@ -16,11 +17,6 @@ interface State {
 }
 
 class Inputs extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props)
-        this.state = {
-        }
-    }
 
     render() {
         let inputs: any = []
@@ -30,22 +26,25 @@ class Inputs extends React.Component<Props, State> {
                     key={para.label}
                     label={para.label}
                     name={para.name}
-                    rules={[{ required: para.required, message: '请输入' + para.label}]}
+                    rules={[{ required: para.required, message: '请输入' + para.label }]}
                 >
                     <Input placeholder={para.placeholder} />
                 </Form.Item>
             )
         })
-        
+
         return (
-            <Form name="basic" layout='inline' onFinish={(value: any) => this.props.handlerSearch(this.props.url, value)}>
-                {inputs}
-                <Form.Item >
-                    <Button type="primary" htmlType="submit">
-                        查找
-                    </Button>
-                </Form.Item>
-            </Form>
+            <div>
+                <p className='text'>{this.props.text}</p>
+                <Form name="basic" layout='inline' onFinish={(value: any) => this.props.handlerSearch(value)}>
+                    {inputs}
+                    <Form.Item >
+                        <Button type="primary" htmlType="submit">
+                            查找
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </div>
         )
     }
 }

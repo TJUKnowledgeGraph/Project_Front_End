@@ -1,9 +1,7 @@
 import React from 'react'
 import './index.scss'
 import { Layout } from 'antd';
-import Graph from 'components/Graph'
 import Inputs from 'components/Inputs'
-import { get } from 'api/query'
 import Card from 'components/Card'
 
 interface Props {
@@ -25,32 +23,7 @@ class Content extends React.Component<Props, State> {
 
     ref: any = React.createRef()
 
-    // 讲数据处理为适合前端显示的格式
-    processData = (data: any) => {
-
-        let nodes = data.nodes = data.node
-        let edges = data.edges = data.edge
-
-
-        nodes.forEach((node: any) => {
-            node.id = node.id.toString()
-        });
-
-        edges.forEach((edge: any) => {
-            edge.source = edge.source.toString()
-            edge.target = edge.target.toString()
-        });
-
-        let datas = this.state.datas
-        datas.push(data)
-        console.log(datas)
-        this.setState({
-            datas: datas
-        })
-        return data
-    }
-
-    handleSearch = (url: string, value: any) => {
+    handleSearch = (value: any) => {
         console.log(value)
         let datas = this.state.datas
         datas.push({
@@ -59,9 +32,7 @@ class Content extends React.Component<Props, State> {
         })
         this.setState({
             datas: datas
-        })
-
-
+        }, this.scrollToTop)
     }
 
     // 平滑滚动至顶部
@@ -74,10 +45,6 @@ class Content extends React.Component<Props, State> {
             }
             last = this.ref.current.scrollTop
         }, 50)
-    }
-
-    componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any): void {
-        this.scrollToTop()
     }
 
     render() {
@@ -95,9 +62,9 @@ class Content extends React.Component<Props, State> {
             <Layout className='content'>
                 {
                     this.props.item ?
-                        <Inputs handlerSearch={this.handleSearch} url={this.props.item.url} paras={this.props.item.paras}></Inputs>
+                        <Inputs handlerSearch={this.handleSearch} text={this.props.item.text} paras={this.props.item.paras}></Inputs>
                         :
-                        <h1>请选择一项</h1>
+                        <p className='text'>欢迎使用新冠知识图谱查询系统，请点击右侧菜单选择查询。</p>
                 }
                 <div className='cards' ref={this.ref}>
                     {cards}

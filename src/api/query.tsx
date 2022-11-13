@@ -5,14 +5,14 @@ export function get(url: string, params: Object) {
     console.log(params)
     url = '/api' + url + '?'
     Object.entries(params).forEach(entry => {
+        if (entry[1] === undefined) {
+            entry[1] = ''
+        }
         url += entry[0] + '=' + entry[1] + '&'
     })
     
     console.log(url)
     return fetch(
-        // 'https://gw.alipayobjects.com/os/basement_prod/6cae02ab-4c29-44b2-b1fd-4005688febcb.json',
-        // '/api/test/getAllOwl',
-        // '/api/basic/getNodeDetail?direction=1&label=owl__Class&prop=rdfs__label&relation=rdfs__subClassOf&value=ARF5',
         url,
         {
             // mode:'no-cors',
