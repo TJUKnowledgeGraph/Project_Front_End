@@ -16,9 +16,6 @@ const color_set = ["#dd6b66",
 
 function changeStyle(data: any) {
     const nodes = data.nodes;
-    console.log(data)
-    console.log(nodes)
-
     nodes.forEach((node: any) => {
 
         if (!node.style) {
@@ -28,22 +25,21 @@ function changeStyle(data: any) {
             fill: color_set[node.id % color_set.length],
             stroke: '',
         };
-        // node.lable = node.rdfs__label
-
-        // switch (
-        //     node.properties.type // Configure the graph based on the 'type' of nodes 
-        // ) {
-        //     case ('Person'):
-        //         {
-        //             node.size = 32;
-        //             break;
-        //         }
-        // }
     });
 }
 
 interface Props {
-    data: any
+    data: {
+        nodes: {
+            id: string,
+            label: string
+        }[],
+        edges: {
+            source: string,
+            target: string,
+            label: string,
+        }[],
+    }
 }
 
 interface State {
@@ -56,10 +52,6 @@ class Graph extends React.Component<Props, State> {
     componentDidMount(){
         this.graph = new G6.Graph({
             container: this.ref.current, // 指定挂载容器
-            // width: 1000, // 图的宽度
-            // height: 1000, // 图的高度
-            // fitView: true,
-            // fitViewPadding: [20, 40, 50, 20],
             width: 1500,
             height: 600,
             modes: {
@@ -74,7 +66,6 @@ class Graph extends React.Component<Props, State> {
 
             defaultNode: {
                 size: 35,
-                // color: 'rgba(209, 207, 207, 0.26)',
                 style: {
                     lineWidth: 2,
                     fill: '',

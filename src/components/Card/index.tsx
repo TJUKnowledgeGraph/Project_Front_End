@@ -42,7 +42,6 @@ class Card extends React.Component<Props, State> {
         } else if (this.props.item.type === 'table') {
             content = (<Table data={this.state.data}></Table>)
         }
-        // content = (<h1 className='loading'>加载中，请耐心等待，不要重复点击</h1>)
 
         return(
             <div className='card'>

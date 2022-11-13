@@ -48,7 +48,6 @@ class Content extends React.Component<Props, State> {
     }
 
     render() {
-        console.log(this.props.item)
         let cards: any[] = []
         let key = 0
         this.state.datas.forEach((data) => {
